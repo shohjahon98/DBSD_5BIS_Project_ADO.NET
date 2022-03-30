@@ -1,0 +1,109 @@
+﻿@model  BookOnlineMarket.Models.viewModel.ProcessViewModel
+@using BookOnlineMarket.Helpers
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("ConvertFile", "SalesProcess", FormMethod.Post))
+{
+    <div class="form-group-lg">
+        <div>
+            Import File
+        </div>
+        <label>File Type:</label>
+        <select name="fileType">
+            <option>JSON</option>
+            <option>XML</option>
+            <option>CSV</option>
+        </select>
+        <input type="submit" value="Export
+               File" style="background-color:darkgreen;color:white;border:none"/>
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            Book Name
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            SupName
+        </th>
+        <th>
+            OrderDate
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Client First Name
+        </th>
+        <th>
+            Client Last Name
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.Procces)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.pageInfo, x => Url.Action("Index", new { page = x }))
+</div>
+@using (Html.BeginForm("Search", "SalesProcess", FormMethod.Post))
+{
+    <div class="form-group">
+
+        <h3>Search</h3>
+        <div>
+
+            Author
+            @Html.EditorFor(model => model.Search.Author, new { htmlAttributes = new { @class = "form-control mb-2" } })
+            Book name
+            @Html.EditorFor(model => model.Search.BookName, new { htmlAttributes = new { @class = "form-control mb-2" } })
+            Suplier Name
+            @Html.EditorFor(model => model.Search.SupName, new { htmlAttributes = new { @class = "form-control mb-2" } })
+            Order Date
+            @Html.EditorFor(model => model.Search.OrderDate, new { htmlAttributes = new { @class = "form-control mb-2" } })
+            Client Last name or First Name
+            @Html.EditorFor(model => model.Search.ClientName, new { htmlAttributes = new { @class = "form-control mb-2" } })
+
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Search" />
+        </div>
+    </div>}
